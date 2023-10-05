@@ -3,8 +3,9 @@ local lsp = require("lsp-zero")
 lsp.preset("recommended")
 
 lsp.ensure_installed({
-  'ruby_ls',
-  'gopls'
+  'solargraph',
+  'gopls',
+  'clangd'
 })
 
 -- Fix Undefined global 'vim'
@@ -51,6 +52,10 @@ lsp.on_attach(function(client, bufnr)
   vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, opts)
   vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
 end)
+
+require('lspconfig').clangd.setup({
+  filetypes = { "c", "cu", "cuda" }
+})
 
 lsp.setup()
 
